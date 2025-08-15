@@ -1,59 +1,100 @@
+// SplashScreenFragment.kt
 package com.hasanzade.calcueai
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SplashScreenFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SplashScreenFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private val viewModel: SplashViewModel by viewModels {
+        SplashViewModelFactory(
+            FirebaseModule.provideUserPreferences(requireContext())
+        )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_splash_screen, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SplashScreenFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SplashScreenFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        startAnimation(view)
+        observeNavigation()
+    }
+
+    private fun startAnimation(view: View) {
+        val calCueText = view.findViewById<View>(R.id.CalCueId)
+        val aiText = view.findViewById<View>(R.id.ai_text)
+        val sloganText = view.findViewById<View>(R.id.slogan_text)
+
+        // Set initial alpha to 0
+        calCueText.alpha = 0f
+        aiText.alpha = 0f
+        sloganText.alpha = 0f
+        sloganText.translationY = 100f
+
+        val fadeInCalCue = ObjectAnimator.ofFloat(calCueText, "alpha", 0f, 1f).apply {
+            duration = 1000
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val fadeInAi = ObjectAnimator.ofFloat(aiText, "alpha", 0f, 1f).apply {
+            duration = 800
+            startDelay = 500
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val slideUpSlogan = ObjectAnimator.ofFloat(sloganText, "translationY", 100f, 0f).apply {
+            duration = 800
+            startDelay = 1000
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val fadeInSlogan = ObjectAnimator.ofFloat(sloganText, "alpha", 0f, 1f).apply {
+            duration = 800
+            startDelay = 1000
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        AnimatorSet().apply {
+            playTogether(fadeInCalCue, fadeInAi, slideUpSlogan, fadeInSlogan)
+            start()
+        }
+    }
+
+    private fun observeNavigation() {
+        lifecycleScope.launch {
+            viewModel.navigationState.collect { state ->
+                when (state) {
+                    is SplashNavigationState.NavigateToOnboarding -> {
+                        findNavController().navigate(
+                            R.id.action_splashScreenFragment_to_firstOnBoardingFragment
+                        )
+                    }
+                    is SplashNavigationState.NavigateToLogin -> {
+                        findNavController().navigate(
+                            R.id.action_splashScreenFragment_to_loginFragment
+                        )
+                    }
+                    is SplashNavigationState.NavigateToMain -> {
+                    }
+                    else -> {}
                 }
             }
+        }
     }
 }

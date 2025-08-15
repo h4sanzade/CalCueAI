@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "209075376302",
+    "project_id": "calcueai",
+    "storage_bucket": "calcueai.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209075376302:android:2ce70af3425acb0add9d3f",
+        "android_client_info": {
+          "package_name": "com.h4sanzade.CalCueAi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAewam0L0BCLt8i20h4ZeYy6z17tiEhibk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209075376302:android:4828765167042d6cdd9d3f",
+        "android_client_info": {
+          "package_name": "com.hasanzade.calcueai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAewam0L0BCLt8i20h4ZeYy6z17tiEhibk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

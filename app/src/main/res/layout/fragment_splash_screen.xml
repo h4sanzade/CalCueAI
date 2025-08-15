@@ -7,9 +7,8 @@
     tools:context=".SplashScreenFragment"
     android:background="@color/black">
 
-
-        <TextView
-            android:id="@+id/CalCueId"
+    <TextView
+        android:id="@+id/CalCueId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -18,12 +17,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="150dp"
-            android:fontFamily="@font/space_bold"
+        android:fontFamily="@font/space_bold"
         android:text="CalCue">
-
     </TextView>
 
     <TextView
+        android:id="@+id/ai_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AI"
@@ -34,12 +33,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="152dp"
-        android:layout_marginEnd="140dp"
-        >
-
+        android:layout_marginEnd="140dp">
     </TextView>
 
     <TextView
+        android:id="@+id/slogan_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Eating healthy \nmade easy"
@@ -52,11 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/CalCueId"
         android:textSize="18sp"
         android:fontFamily="@font/space_regular">
-
     </TextView>
-
-
-
 
     <ImageView
         android:layout_width="wrap_content"
@@ -65,7 +59,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
     </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

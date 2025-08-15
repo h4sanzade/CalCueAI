@@ -129,6 +129,29 @@
             android:background="@drawable/otp_box"
             android:maxLength="1"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/timer_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/resend_code_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/email_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/space_regular"
+        app:layout_constraintTop_toBottomOf="@id/verify_email_text"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/didnt_receive_code_text"
